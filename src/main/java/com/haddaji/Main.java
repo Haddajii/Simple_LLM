@@ -1,17 +1,29 @@
 package com.haddaji;
+import com.haddaji.HaddajiLLM;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import java.util.Scanner;
+
 public class Main {
-    public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+    public static void main(String[] args) throws Exception {
+        Scanner scanner = new Scanner(System.in);
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        System.out.println("🔥 DeepSeek Console Chatbot");
+        System.out.println("Type your message below. Type 'exit' to quit.\n");
+
+        while (true) {
+            System.out.print("You: ");
+            String userMessage = scanner.nextLine();
+
+            if (userMessage.equalsIgnoreCase("exit")) {
+                break;
+            }
+
+            String reply = HaddajiLLM.haddaji_simple_llm(userMessage);
+            System.out.println("AI: " + reply + "\n");
         }
+
+        HaddajiLLM.close();
+        System.out.println("👋 Chatbot closed.");
+
     }
 }
