@@ -43,11 +43,17 @@ public class DeepseekClient {
 
         Locator newBlock = allBlocks.nth(oldCount);
 
+        String lastText = "";
+        String currentText = "";
+
         while (true) {
-            String text = newBlock.innerText().trim();
-            boolean isStreaming = !newBlock.locator(".cursor-dot, .typing-dot, .loading-dot, .thinking-spinner").all().isEmpty();
-            if (!isStreaming && !text.isEmpty()) break;
-            page.waitForTimeout(2000);
+            currentText = newBlock.innerText().trim();
+            if (currentText.equals(lastText) && !currentText.isEmpty()) {
+                break;
+            }
+
+            lastText = currentText;
+            page.waitForTimeout(800);
         }
 
         Locator paragraphs = newBlock.locator("p.ds-markdown-paragraph");
@@ -58,6 +64,7 @@ public class DeepseekClient {
 
         return full.toString().trim();
     }
+
 
 
     public void close() {
