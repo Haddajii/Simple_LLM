@@ -14,7 +14,7 @@ public class DeepseekClient {
     public DeepseekClient(Playwright playwright) {
         this.browser = playwright.chromium().launch(
                 new BrowserType.LaunchOptions()
-                        .setHeadless(false)
+                        .setHeadless(true)
                         .setExecutablePath(Paths.get("C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe"))
         );
         this.context = SessionManager.loadSession(playwright, browser);
